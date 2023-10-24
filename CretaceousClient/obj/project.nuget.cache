@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "n4OsAjuReCOH1d5Y/vzhpHs2NFcUf919DCJJ5mzME1C1KJjarCfTtsKTqmNWgkaveJ+vFJtY9UyxO4zEo8d6zw==",
+  "success": true,
+  "projectFilePath": "/Users/sethgonzales/Desktop/CretaceousClient.Solution/CretaceousClient/CretaceousClient.csproj",
+  "expectedPackageFiles": [
+    "/Users/sethgonzales/.nuget/packages/newtonsoft.json/13.0.2/newtonsoft.json.13.0.2.nupkg.sha512",
+    "/Users/sethgonzales/.nuget/packages/restsharp/108.0.3/restsharp.108.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
