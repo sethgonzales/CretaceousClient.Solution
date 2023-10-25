@@ -5,9 +5,17 @@ namespace CretaceousClient.Controllers;
 
 public class AnimalsController : Controller
 {
-  public IActionResult Index()
+  public IActionResult Index(int page = 1)
   {
-    List<Animal> animals = Animal.GetAnimals();
+    int pageSize = 4; // Set your desired page size here
+    // int skip = (page -1) * pageSize;
+
+    // List<Animal> animals = Animal.GetAnimals(pageSize, skip);
+    List<Animal> animals = Animal.GetAnimals (pageSize, page);
+
+    ViewBag.CurrentPage = page;
+    ViewBag.PageSize = pageSize;
+
     return View(animals);
   }
   public IActionResult Details(int id)
@@ -38,7 +46,7 @@ public class AnimalsController : Controller
     Animal.Put(animal);
     return RedirectToAction("Details", new { id = animal.AnimalId });
   }
-  
+
   public ActionResult Delete(int id)
   {
     Animal animal = Animal.GetDetails(id);

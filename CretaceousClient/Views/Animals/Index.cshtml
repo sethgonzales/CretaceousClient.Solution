@@ -1,17 +1,35 @@
 @{
-    ViewData["Title"] = "Animals";
+  var currentPage = (int)ViewBag.CurrentPage;
+  var pageSize = (int)ViewBag.PageSize;
+  var totalPages = Math.Ceiling(Model.Count / (double)pageSize);
 }
+
 
 <h1>All Cretaceous Animals</h1>
 
 <h3>Actions:</h3>
-
 <p>@Html.ActionLink("Add a new animal to the park", "Create")</p>
+
 
 <h3>Animals:</h3>
 <ol>
 @foreach (Animal animal in Model)
 {
-  <li><strong>@animal.Name</strong> the @animal.Species | <a href="/Animals/Details/@(animal.AnimalId)">View Details</a></li>
+    <li><strong>@animal.Name</strong> the @animal.Species | <a href="/Animals/Details/@(animal.AnimalId)">View Details</a></li>
 }
 </ol>
+
+<div class="pagination">
+    @if (currentPage > 1)
+    {
+        <a href="/Animals/Index?page=@(currentPage - 1)">Previous</a>
+    }
+    @for (int i = 1; i <= totalPages; i++)
+    {
+        <a href="/Animals/Index?page=@i" @(i == currentPage ? "class=current" : "")>@i</a>
+    }
+    @if (currentPage < totalPages)
+    {
+        <a href="/Animals/Index?page=@(currentPage + 1)">Next</a>
+    }
+</div>

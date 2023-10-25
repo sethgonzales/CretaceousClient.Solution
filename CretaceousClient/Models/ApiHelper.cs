@@ -5,13 +5,16 @@ namespace CretaceousClient.Models
 {
   public class ApiHelper
   {
-    public static async Task<string> GetAll()
+    public static async Task<string> GetAll(int page, int pageSize)
     {
       RestClient client = new RestClient("http://localhost:5000/");
       RestRequest request = new RestRequest($"api/animals", Method.Get);
-      RestResponse response = await client.GetAsync(request);
+      request.AddQueryParameter("page", page.ToString());
+      request.AddQueryParameter("pageSize", pageSize.ToString());
+      RestResponse response = await client.ExecuteAsync(request);
       return response.Content;
     }
+
     public static async Task<string> Get(int id)
     {
       RestClient client = new RestClient("http://localhost:5000/");
@@ -35,7 +38,7 @@ namespace CretaceousClient.Models
       request.AddJsonBody(newAnimal);
       await client.PutAsync(request);
     }
-    
+
     public static async void Delete(int id)
     {
       RestClient client = new RestClient("http://localhost:5000/");

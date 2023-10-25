@@ -12,12 +12,19 @@ namespace CretaceousClient.Models
     public string Species { get; set; }
     public int Age { get; set; }
 
-    public static List<Animal> GetAnimals()
+    public static List<Animal> GetAnimals(int page, int pageSize)
     {
-      var apiCallTask = ApiHelper.GetAll();
+      var apiCallTask = ApiHelper.GetAll(page, pageSize);
       var result = apiCallTask.Result;
 
       JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
+
+      // Ensure that the response is an array of animals
+      if (jsonResponse == null)
+      {
+        return new List<Animal>();
+      }
+
       List<Animal> animalList = JsonConvert.DeserializeObject<List<Animal>>(jsonResponse.ToString());
 
       return animalList;
@@ -43,7 +50,7 @@ namespace CretaceousClient.Models
       string jsonAnimal = JsonConvert.SerializeObject(animal);
       ApiHelper.Put(animal.AnimalId, jsonAnimal);
     }
-    
+
     public static void Delete(int id)
     {
       ApiHelper.Delete(id);
